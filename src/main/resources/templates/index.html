@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Tourney Runner</title>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <link rel="stylesheet" href="../static/css/theme.css" th:href="@{/css/theme.css}"/>
+  <link rel="stylesheet" href="../static/css/loading.css" th:href="@{/css/loading.css}"/>
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="../static/js/loading.js" th:src="@{/js/loading.js}"></script>
+  <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+
+  <div data-role="page" id="loadscreenPage">
+    <div data-role="main" class="ui-content" id="loadscreen">
+    <centre><img src="images/TourneyRunner_logo.png" height="200" width="280" alt = "TourneyRunner"/></centre>
+    <div id="loader-frame">
+        <div id="loader1"></div>
+        <div id="loader2"></div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Login Page -->
+  <div data-role="page" id="login">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <h1>Login</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <div class="ui-field-contain">
+        <div class="ui-field-contain">
+          <label for="loginUsername">Username:</label>
+          <input type="text" name="loginUsername" id="loginUsername" value=""></input>
+        </div>
+        <div class="ui-field-contain">
+          <label for="loginPassword">Password:</label>
+          <input type="password" name="loginPassword" id="loginPassword" value=""></input>
+        </div>
+      </div>
+        <a href="" class="ui-btn ui-corner-all" onclick="login();">Login</a>
+        <a href="#register" class="ui-btn ui-corner-all">Register</a>
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Login Page -->
+
+
+  <!-- Register -->
+  <div data-role="page" id="register">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <a href="#login" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
+      <h1>Register</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <div class="ui-field-contain">
+        <div class="ui-field-contain">
+          <label for="registerUsername">Username:</label>
+          <input type="text" name="registerUsername" id="registerUsername" value=""></input>
+        </div>
+        <div class="ui-field-contain">
+          <label for="registerName">Name:</label>
+          <input type="text" name="registerName" id="registerName" value=""></input>
+        </div>
+        <div class="ui-field-contain">
+          <label for="registerSurname">Surname:</label>
+          <input type="text" name="registerSurname" id="registerSurname" value=""></input>
+        </div>
+        <div class="ui-field-contain">
+          <label for="registerEmail">E-mail:</label>
+          <input type="text" name="registerEmail" id="registerEmail" value=""></input>
+        </div>
+        <div class="ui-field-contain">
+          <label for="registerPassword">Password:</label>
+          <input type="password" name="registerPassword" id="registerPassword" value=""></input>
+        </div>
+        <div class="ui-field-contain">
+          <label for="registerConfirmPassword">Confirm password:</label>
+          <input type="password" name="registerConfirmPassword" id="registerConfirmPassword" value=""></input>
+        </div>
+      </div>
+        <a href="" class="ui-btn ui-corner-all" onclick="register();">Confirm</a>
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Register -->
+
+
+  <!-- Main Menu -->
+  <div data-role="page" id="mainMenu">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <a href="#login" class="ui-btn ui-icon-action ui-btn-icon-notext ui-corner-all">No text</a>
+      <h1>TourneyRunner</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <div class="ui-field-contain">
+        <a href="#tournamentsPage" class="ui-btn ui-corner-all">Tournaments</a>
+        <a href="#teamsPage" class="ui-btn ui-corner-all">Teams</a>
+        <a href="#accountDetailsPage" class="ui-btn ui-corner-all">Account details</a>
+      </div>
+
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Main Menu -->
+
+
+  <!-- Teams -->
+  <div data-role="page" id="teamsPage">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <a href="#mainMenu" class="ui-btn ui-btn-right ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
+      <h1>Teams</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <div class="ui-field-contain">
+          <a href="#createTournament" class="ui-btn ui-corner-all">Create Team</a>
+      </div>
+      <div class="ui-field-contain">
+        <h3 style="text-align:center">Member of:</h3>
+        <ul data-role="listview" id="teamList">
+            <!-- Auto generated -->
+        </ul>
+      </div>
+
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Teams -->
+
+  <!-- Team view -->
+  <div data-role="page" id="teamViewPage">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <a href="#teamsPage" class="ui-btn ui-btn-left ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
+      <a href="#mainMenu" class="ui-btn ui-btn-right ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
+      <h1 id="teamName"> Members </h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <div class="ui-field-contain">
+        <ul data-role="listview" id="teamsSpace">
+                  <!-- js generated -->
+        </ul>
+      </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Team view -->
+
+  <!-- Tournaments -->
+  <div data-role="page" id="tournamentsPage">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <a href="#mainMenu" class="ui-btn ui-btn-right ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
+      <h1>Tournaments</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <div class="ui-field-contain">
+        <label for="joinCode">Enter Tournament code to join:</label>
+        <input type="text" name="joinCode" id="joinCode" placeholder="eg: BS123ND"></input>
+        <button class="ui-btn ui-corner-all" style="margin-top:6px" onClick="joinTournament();">Join</button>
+      </div>
+      <div class="ui-field-contain">
+          <a href="#tournamentCreate" class="ui-btn ui-corner-all">Create Tournament</a>
+      </div>
+      <div class="ui-field-contain">
+        <h3 style="text-align:center">Currently joined</h3>
+        <ul data-role="listview" id="tournamentList">
+          <!-- Auto filled by javascript -->
+        </ul>
+      </div>
+
+
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Tournaments -->
+
+
+
+  <!-- Tournament view -->
+  <div data-role="page" id="tournamentView">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <a href="#tournamentsPage" class="ui-btn ui-btn-left ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
+      <a href="#mainMenu" class="ui-btn ui-btn-right ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
+      <h1 id="tournamentName"></h1>
+    </div>
+    <div data-role="main" class="ui-content" id="tournamentSpace">
+          <!-- js generated -->
+
+    </div>
+    <div data-role="popup" id="scoreSetPopup" data-overlay-theme="a" data-position-to="window" style="min-width:15em;top:1em;">
+        <div role="dialog" class="ui-dialog-contain ui-corner-all ui-overlay-shadow">
+          <div data-role="header" data-theme="d" class="ui-corner-top ui-header ui-bar-d" role="banner">
+            <a href="#" data-rel="back" class="ui-btn ui-btn-left ui-icon-delete ui-btn-icon-notext ui-corner-all" id="scorePopupCloseButton">No text</a>
+            <h1 class="ui-title" role="heading" aria-level="1">Score</h1>
+          </div>
+          <div data-role="content" data-theme="c" class="ui-corner-bottom ui-content ui-body-c" role="main">
+            <label for="player1Fixture" id="player1NameClass">Player1:</label>
+            <input type="range" name="player1Fixture" id="player1FixtureScore" value="0" min="0" max="10" />
+            <label for="player2Fixture" id="player2NameClass">Player2:</label>
+            <input type="range" name="player2Fixture" id="player2FixtureScore" value="0" min="0" max="10" />
+            <fieldset data-role="controlgroup">
+              <legend>Winner:</legend>
+                  <input type="radio" name="radio-choice" value="choice-1" id="player1Won" checked="checked" />
+                  <label for="player1Won" id="player1NameClassRadio">Player1</label>
+
+                  <input type="radio" name="radio-choice" id="player2Won" value="choice-2"  />
+                  <label for="player2Won" id="player2NameClassRadio">Player2</label>
+              </fieldset>
+            <button class="ui-btn ui-corner-all" style="margin-top:6px" onClick="tournamentCode.confirmScore();">Confirm</button>
+          </div>
+        </div>
+      </div>
+
+
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Tournament view -->
+
+  <!-- Tournament create -->
+  <div data-role="page" id="tournamentCreate">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <a href="#tournamentsPage" class="ui-btn ui-btn-left ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
+      <a href="#mainMenu" class="ui-btn ui-btn-right ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
+      <h1>Create Tournament</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <div class="ui-field-contain">
+        <div class="ui-field-contain">
+          <label for="tournamentCreateName">Tournament Name:</label>
+          <input type="text" name="tournamentCreateName" id="tournamentCreateName"></input>
+        </div>
+        <div class="ui-field-contain">
+        <label for="tournamentCreateType" class="select">Tournament Type:</label>
+          <select name="tournamentCreateType" id="tournamentCreateType">
+             <option value="knockout">Knockout</option>
+             <option value="league">League</option>
+          </select>
+        </div>
+      </div>
+      <div class="ui-field-contain">
+        <button class="ui-btn ui-corner-all" style="margin-top:6px" onClick="createTournament.create();">Create</button>
+      </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Tournament create -->
+
+  <!-- Tournament add Participants -->
+  <div data-role="page" id="tournamentAddParticipantsPage">
+    <div data-role="header" data-position="fixed" data-theme="b">
+      <h1 id="tournamentAddParticipantsHeader"></h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <div class="ui-field-contain">
+        <div class="ui-field-contain">
+          <label for="tournamentCreateSearchParticipants">Search:</label>
+          <input type="text" name="tournamentCreateSearchParticipants" id="tournamentCreateSearchParticipants" placeholder="search by username"></input>
+        </div>
+        <button class="ui-btn ui-corner-all" style="margin-top:6px" onClick="createTournament.addParticipant();">Add</button>
+      </div>
+      <div class="ui-field-contain">
+        <h3 style="text-align:center">Participants</h3>
+        <ol data-role="listview" data-filter="true" id="tournamentCreateParticipants">
+        </ol>
+      </div>
+      <div class="ui-field-contain">
+        <button class="ui-btn ui-corner-all" style="margin-top:6px" onClick="createTournament.finalize();">Create</button>
+        <button class="ui-btn ui-corner-all" style="margin-top:6px" onClick="createTournament.delete();">Cancel</button>
+      </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+      <h2>&copy;TourneyRunner</h2>
+    </div>
+  </div><!-- Tournament add Participants -->
+
+
+
+    <!-- Account Details -->
+    <div data-role="page" id="accountDetailsPage">
+      <div data-role="header" data-position="fixed" data-theme="b">
+        <a href="#mainMenu" class="ui-btn ui-btn-right ui-icon-home ui-btn-icon-notext ui-corner-all">No text</a>
+        <h1>Account Details</h1>
+      </div>
+      <div data-role="main" class="ui-content">
+        <div class="ui-field-contain">
+          <a data-role="button" href="#" data-shadow="false" data-theme="none" style="width:100px;height:100px;margin: 0 auto;">
+            <img src="images/user.jpg" style="width:100px;height:100px;"/>
+          </a>
+        </div>
+        <div class="ui-field-contain">
+          <ul data-role="listview" data-inset="true" class="ui-corner-all" id="accountDetails">
+          </ul>
+        </div>
+      </div>
+      <div data-role="footer" data-position="fixed" data-theme="b">
+        <h2>&copy;TourneyRunner</h2>
+      </div>
+    </div><!-- Account Details -->
+</body>
+</html>

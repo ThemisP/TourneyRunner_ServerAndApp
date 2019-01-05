@@ -1,0 +1,5 @@
+Guide for mobile testing:
+ - find ur computer ip address (eg 192.168....) (find ip for mac https://www.wikihow.com/Find-Your-IP-Address-on-a-Mac, on windows just type ipconfig in command promt and on wireless its the IPv4)
+ - replace it on variable host (top of main.js in folder resources/static/js)
+ - make a hotspot on ur pc and connect ur mobile to it (due to secure uni and halls internet providers)
+ - connect through ur mobile to address 192.168....:3000 (ip of pc)
